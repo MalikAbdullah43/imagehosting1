@@ -44,8 +44,7 @@ class SignupController extends Controller
     public function signUpMail($email)
     {
         try {
-            $mail = new MailService();
-            $response   = $mail->mail($email);
+            $response   = MailService::mail($email);
             if ($response == true)
                 return true;
             else
