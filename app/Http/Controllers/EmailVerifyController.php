@@ -17,13 +17,12 @@ class EmailVerifyController extends Controller
 
         $user = new User();
         $nosql = $user->where('email', $email)->where('email_verified_at', NULL)
-            ->update(['email_verified_at' => now(), 'status' => '1']);
-
-        if (!empty($nosql->getModifiedCount())) {
+            ->update(['email_verified_at' => now()->__toString(), 'status' => '1']);
+        if ($nosql>0) 
             return "Successfully Verify";
-        } else {
+         else 
             return "Already Verified Or Link Expire";
-        }
+        
     }
 
     public function regenrate_link($email)
@@ -44,7 +43,7 @@ class EmailVerifyController extends Controller
         )->update(['$set' => ['link_expiry' => $time]]);
 
         //check if User Link is Valid regenerate link
-        if ($nosql->getModifiedCount() > 0)
+        if ($nosql > 0)
             return "Email Regenrate Successfully";
         else
             return "Link Already Verify";
