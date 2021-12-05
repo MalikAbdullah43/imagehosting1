@@ -40,7 +40,7 @@ return [
        'mongodb' =>[
             'driver' => 'mongodb',
             'dsn' => env('DB_URI', 'mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false'),
-            'database' => 'myappdb',
+            'database' => 'imagehosting',
         ],
 
         'sqlite' => [
