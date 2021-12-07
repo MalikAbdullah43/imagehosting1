@@ -23,7 +23,7 @@ class CheckEmail
         $password  = $request->password;  //Hashing Purpose
 
         $pass = User::where('email', $request->email)->first();
-        
+    
         if (Hash::check($request->password, $pass->password))  //If Password Match
         {
             $user = User::where(['email'=> $request->email,'status'=>"1"])

@@ -40,7 +40,7 @@ return [
             'connection' => 'mongodb',
             'table' => 'jobs',
             'queue' => 'default',
-            'expire' => 60,
+            'retry_after' => 60
         ],
 
         'beanstalkd' => [
