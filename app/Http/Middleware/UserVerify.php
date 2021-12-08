@@ -18,7 +18,7 @@ class UserVerify
      */
     public function handle(Request $request, Closure $next)
     {
-
+      
         $jwt = $request->bearerToken();
         
         if (!empty($jwt)) {

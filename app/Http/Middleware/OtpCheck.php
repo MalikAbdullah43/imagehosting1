@@ -17,6 +17,7 @@ class OtpCheck
      */
     public function handle(Request $request, Closure $next)
     {  
+        app('App\Http\Requests\CheckOtpRequest');
         $jwt = $request->bearerToken();
         
         if(!empty($jwt)){

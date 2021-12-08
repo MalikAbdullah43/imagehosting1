@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Service\MailService;
 use App\Service\UsersCollectionService;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\mail;
 use App\Mail\SignupMail;
 use App\Models\User;
@@ -29,13 +30,7 @@ class EmailVerifyController extends Controller
     {
         $user = new User();
 
-        $details = [
-            'title' => 'This Social Application Verifacation',
-            'link'  => 'http://127.0.0.1:8000/user/verification' . '/' . $email,
-            'link1' => 'http://127.0.0.1:8000/user/regenrate' . '/' . $email
-        ];
-        //Mail Sending Facade
-        Mail::to('malikabdullah4300@gmail.com')->send(new SignupMail($details));
+        
         //MongoDB Query
         $time = now()->addMinutes(10)->__toString();  //link_expiry Extend 
         $nosql = $user->where(

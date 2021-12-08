@@ -1,13 +1,11 @@
 <?php
 namespace App\Service;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\mail;
-use App\Mail\SignupMail;
 use App\Jobs\SignupEmailJob;
 use App\Jobs\LoginEmailJob;
 use App\Jobs\ForgetPasswordJob;
 use App\Jobs\UpdatemailJob;
+use App\Jobs\RegenrateLink;
 
 class MailService{    
     
@@ -25,16 +23,33 @@ class MailService{
  }
 
 
-
-   static public function mail($email)
+  //Sign Up Function For Mail Sending Towards Email
+    public static function mail($email)
     {
         $details = ['title'=>'Hello Malik',
-                    'link' =>'http://127.0.0.1:8000/user/verification'.'/'.$email,
-                    'link1' => 'http://127.0.0.1:8000/user/regenrate'.'/'.$email];
+                    'link' =>'http://' .$_SERVER['HTTP_HOST'].'/user/verification'.'/'.$email,
+                    'link1' =>'http://'.$_SERVER['HTTP_HOST'].'/user/regenrate'.'/'.$email];
+                    
                     dispatch(new SignupEmailJob($details));
                     return true;     
     }
 
+
+
+    //Regenrate Verification mail Function For sending Toward Job
+    public static function RegenrateMail($email)
+    {
+        $details = [
+            'title' => 'This Social Application Verifacation',
+            'link'  => 'http://'.$_SERVER['HTTP_HOST'].'/user/verification' . '/' . $email,
+            'link1' => 'http://'.$_SERVER['HTTP_HOST'].'/user/regenrate' . '/' . $email
+        ];
+        //Mail Sending Facade
+             dispatch(new RegenrateLink($details));
+    }
+
+
+    //Forget Mail Function For sending Toward Job
     public static function forgetmail($email, $otp)
     {
         $details = [
@@ -45,23 +60,14 @@ class MailService{
         $mailQueue  = dispatch(new ForgetPasswordJob($details));
     
     }
-
+  //Update Email Mail Function For sending Toward Job
     public static function updatemail($email, $otp)
     {
         
 
         $details = [
-            'title' => 'Hello Dear User',
-            'Message' => "We received a request to change the email of your Malikabdullah43 account at ImgBB.
-
-            To complete the process you must activate your email.
-            
-            Alternatively you can copy and paste the URL into your browser: https://imgbb.com/account/change-email-confirm/x3pmPv7VvVRbgT5f
-            
-            If you didn't intend this just ignore this message.
-            
-            --
-            This email was sent from https://malikabdullah.com"
+            'title' => 'Email Updation',
+            'Message' => 'if you want to update email then click on this:' . $otp,
         ];
       
         $mailQueue  = dispatch(new UpdatemailJob($details));
@@ -69,4 +75,3 @@ class MailService{
     }
 
 }
-?>

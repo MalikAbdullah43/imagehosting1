@@ -57,7 +57,7 @@ class PasswordController extends Controller
 
     public function passwordReset(ResetPasswordRequest $request)
     {
-            $update = User::where('_id', $request->user_data->_id)->update(['password' => Hash::make($request->new_password), 'Auth_key' => '']);
+            $update = User::where('_id', $request->user_data->_id)->update(['password' => Hash::make($request->new_password), 'Auth_key' => '','otp'=>'']);
             if ($update > 0) {
                 return response()->success(200);
             } else {

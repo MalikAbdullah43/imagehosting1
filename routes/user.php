@@ -11,8 +11,15 @@ use App\Http\Controllers\UserController;
 
 Route::get('verification/{email}',[EmailVerifyController::class,"verify"]);                        //Link Verification Route
 Route::get('regenrate/{email}',[EmailVerifyController::class,"regenrate_link"]);                   //Verirfy Link Re Create Route
-Route::post('login',[LoginController::class,"logIn"])->middleware('CheckEmailVerification');   
-Route::post('forgetpassword',[PasswordController::class,"forgetPassword"]);          //Forget Route
+
+
+
+Route::middleware(['CheckEmailVerification'])->group(function(){
+    //User Routes
+    Route::post('login',[LoginController::class,"logIn"]);   //Log in Route
+    Route::post('forgetpassword',[PasswordController::class,"forgetPassword"]);          //Forget Route
+    
+});
 
 
 Route::middleware(['UserVerification'])->group(function(){
@@ -23,8 +30,4 @@ Route::middleware(['UserVerification'])->group(function(){
     //Password Reset Request Identify
     Route::post('checkotp',[PasswordController::class,"checkOtp"])->middleware('otp.check');          //Otp Check
     Route::post('resetpassword',[PasswordController::class,"passwordReset"]);          //Password Reset Route
-
-    
 });
-
-?>

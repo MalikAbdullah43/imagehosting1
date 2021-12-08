@@ -56,7 +56,7 @@ class UserController extends Controller
   public function UpdateEmail(UpdateEmailRequest $request){
     
 
-
+      
 
 
 

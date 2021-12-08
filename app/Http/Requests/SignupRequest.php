@@ -38,7 +38,7 @@ class SignupRequest extends FormRequest
                 'regex:/[@$!%*#?&]/', // must contain a special character
             ],
             'age'  => 'required',
-            'image'=>'mimes:png,jpg,jpeg,gif|max:2305',
+            'image'=>'mimes:png,jpg,jpeg,gif|max:3100',
         ];
     }
     public function failedValidation(Validator $validator)

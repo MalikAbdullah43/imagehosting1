@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'CheckEmailVerification' => \App\Http\Middleware\CheckEmail::class,
         'UserVerification' => \App\Http\Middleware\UserVerify::class,
         'otp.check' => \App\Http\Middleware\OtpCheck::class,
+        'accessor' => \App\Http\Middleware\CheckAccess::class,
     ];
 }

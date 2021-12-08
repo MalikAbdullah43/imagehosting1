@@ -8,10 +8,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\UpdatEmail;
+use App\Mail\SignupMail;
 use Illuminate\Support\Facades\mail;
 
-class UpdatemailJob implements ShouldQueue
+class RegenrateLink implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -23,8 +23,9 @@ class UpdatemailJob implements ShouldQueue
     public $details;
     public function __construct($details)
     {
-       $this->details= $details;
+         $this->details=$details;
     }
+
 
     /**
      * Execute the job.
@@ -33,6 +34,6 @@ class UpdatemailJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to('malikabdullah4300@gmail.com')->send(new UpdatEmail($this->details));
+        Mail::to('malikabdullah4300@gmail.com')->send(new SignupMail($this->details));
     }
 }
