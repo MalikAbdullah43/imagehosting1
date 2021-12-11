@@ -22,6 +22,7 @@ class User extends Model
         'name',
         'email',
         'password',
+        'age',
     ];
 
     /**
@@ -32,6 +33,14 @@ class User extends Model
     protected $hidden = [
         'password',
         'remember_token',
+        'otp',
+        'updated_at',
+        'created_at',
+        'email_verified_at',
+        'link_expiry',
+        'status',
+        "Auth_key",
+        "Auth_key_P",
     ];
 
     /**

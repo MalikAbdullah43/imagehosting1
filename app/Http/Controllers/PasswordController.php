@@ -29,12 +29,12 @@ class PasswordController extends Controller
             $Auth_key = TokenService::encode();     //JWT Updation And Printing Message of Log in
             $time = now()->addMinutes(30);
             $user = User::where('email', $request->email)
-                ->update(['Auth_key' => $Auth_key, "otp" => $otp, 'updated_at' => date($time)]);
+                ->update(['Auth_key_P' => $Auth_key, "otp" => $otp, 'updated_at' => date($time)]);
             //Token Validity Increase if All Activity Perfoam And Message Show
             MailService::forgetmail($request->email, $otp);
             return response(
                 [
-                    "message" => "Otp Send On Email", "status" => "200", "Auth_key1" => $Auth_key
+                    "message" => "true", "status" => "200", "Auth_key1" => $Auth_key
                 ],
                 200
             );
@@ -48,18 +48,18 @@ class PasswordController extends Controller
         $jwt = $request->bearerToken();
         $time = now()->addMinutes(30);
         $Auth_key = TokenService::encode();     //JWT Updation And Printing Message of Log in
-        $update = User::where('_id', $request->user_data->_id)->update([ 'Auth_key' => $Auth_key,'updated_at'=>date($time)]);
+        $update = User::where('_id', $request->user_data->_id)->update([ 'Auth_key_P' => $Auth_key,'updated_at'=>date($time)]);
         if($update>0)
-        return response()->json(["message" => "Otp Send On Email", "status" => "200", "Auth_key2" => $Auth_key], 200  );
-        else    return response()->error(404);    
+        return response()->json(["message" => "true", "status" => "200", "Auth_key2" => $Auth_key], 200  );
+        else    return response()->error(401);    
     }
 
 
     public function passwordReset(ResetPasswordRequest $request)
     {
-            $update = User::where('_id', $request->user_data->_id)->update(['password' => Hash::make($request->new_password), 'Auth_key' => '','otp'=>'']);
+            $update = User::where('_id', $request->user_data->_id)->update(['password' => Hash::make($request->new_password), 'Auth_key_P' => '','otp'=>'']);
             if ($update > 0) {
-                return response()->success(200);
+                return response()->success(202);
             } else {
                 return response()->error(404);
             }

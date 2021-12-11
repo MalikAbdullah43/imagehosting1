@@ -19,9 +19,8 @@ class OtpCheck
     {  
         app('App\Http\Requests\CheckOtpRequest');
         $jwt = $request->bearerToken();
-        
         if(!empty($jwt)){
-        $data = User::where(['Auth_key'=>$jwt,'otp'=> +$request->otp])
+        $data = User::where(['Auth_key_P'=>$jwt,'otp'=> +$request->otp])
                     ->where('updated_at','>=',date(now()))
                     ->first();
 

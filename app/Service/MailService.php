@@ -34,8 +34,6 @@ class MailService{
                     return true;     
     }
 
-
-
     //Regenrate Verification mail Function For sending Toward Job
     public static function RegenrateMail($email)
     {
@@ -46,6 +44,7 @@ class MailService{
         ];
         //Mail Sending Facade
              dispatch(new RegenrateLink($details));
+             return true;
     }
 
 
@@ -58,19 +57,19 @@ class MailService{
         ];
       
         $mailQueue  = dispatch(new ForgetPasswordJob($details));
-    
+        return true;
     }
   //Update Email Mail Function For sending Toward Job
-    public static function updatemail($email, $otp)
+    public static function updatemail($email,$code)
     {
         
-
         $details = [
-            'title' => 'Email Updation',
-            'Message' => 'if you want to update email then click on this:' . $otp,
+            'title' => 'If You Want To Change Email of Your App Then Click on this Link..',
+            'link'  => 'http://'.$_SERVER['HTTP_HOST'].'/user/updatemail' . '/' . $email.'/'.$code,
         ];
       
         $mailQueue  = dispatch(new UpdatemailJob($details));
+        return true;
     
     }
 

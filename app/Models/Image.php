@@ -7,7 +7,7 @@ use Jenssegers\Mongodb\Eloquent\Model;
 
 class Image extends Model
 {
-    
+
 
     /**
      * The attributes that are mass assignable.
@@ -15,30 +15,24 @@ class Image extends Model
      * @var string[]
      */
     use SoftDeletes;
-    
-    
-
-
 
 
     protected $connection = 'mongodb';
-    protected $collection = 'images'; 
+    protected $collection = 'images';
     public $timestamps = false;
-   protected $dates = ['deleted_at'];
-
-
-
-
-
-
+    protected $dates = ['deleted_at'];
 
 
     protected $fillable = [
-        'image_name ',
-        'original_name',
-        'extension',
-        'date',
-        'time',
+        "filename",
+        "extension",
+        "hashname",
+        "accessor",
+        "date",
+        "time",
+        "user_id",
+        "image_url",
+        "key",
+        "original_name"
     ];
-
 }

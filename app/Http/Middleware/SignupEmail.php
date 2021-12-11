@@ -19,7 +19,6 @@ class SignupEmail
     public function handle(Request $request, Closure $next)
     {
         app('App\Http\Requests\SignupRequest');
-        
         $user = User::where(["email"=>$request->email])->first();
         if(!empty($user["_id"]))
         return response()->json(['message'=>'email already exist','status'=>'403'],403);

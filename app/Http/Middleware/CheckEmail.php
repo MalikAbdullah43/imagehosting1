@@ -19,13 +19,13 @@ class CheckEmail
      */
     public function handle(Request $request, Closure $next)
     {
-        
+     
         $password  = $request->password;  //Hashing Purpose
-
+        
         $pass = User::where('email', $request->email)->first();
-    
-        if (Hash::check($request->password, $pass->password))  //If Password Match
-        {
+        if(!empty($pass)){
+        if (Hash::check($request->password, $pass->password)){  //If Password Match
+            
             $user = User::where(['email'=> $request->email,'status'=>"1"])
                 ->where('email_verified_at','!=','null')   //Checking if user Email Verify or Not
                 ->first();
@@ -35,6 +35,7 @@ class CheckEmail
             else
                 return response()->error(401);
         } else  return response()->error(404); //If User Input Not Match Then Through This Message
+    }else return response()->error(404);
 
     }
 }
